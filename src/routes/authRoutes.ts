@@ -1,14 +1,19 @@
-import { Request, Response } from "express";
+import { Router, Request, Response } from 'express';
+import { authController } from '../controllers/authControllers';
 
-class authController {
-    public async iniciarSesion(req: Request, res: Response) {
-        const { email, password } = req.body;
-        return res.json({
-            message: "Autenticación correcta",
-            email: email,
-            password: password
-        })
+class AuthRoutes {
+    public router: Router;
+
+    constructor() {
+        this.router = Router();
+        this.config();
+    }
+
+    config() {
+        this.router.post('/', authController.iniciarSesion)
+        console.log("el fackin problema esta en las rutas, entiente >:v");        
     }
 }
 
-export const AuthController = new authController();
+const authRoutes = new AuthRoutes();
+export default authRoutes.router;

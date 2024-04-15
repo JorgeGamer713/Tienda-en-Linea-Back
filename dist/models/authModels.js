@@ -17,7 +17,7 @@ class AuthModelo {
     /*
     *Método para buscar un usuario por username
     */
-    getuserByEmail(email) {
+    getUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             let query = "SELECT * FROM tbl_usuario WHERE email='" + email + "'";
             const result = yield connection_1.default.then((connection) => __awaiter(this, void 0, void 0, function* () {

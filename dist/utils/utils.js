@@ -12,27 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authController = void 0;
-const validator_1 = __importDefault(require("validator"));
-class AuthController {
-    iniciarSesion(req, res) {
+exports.utils = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+class Utils {
+    hashPassword(password) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { email, password } = req.body;
-                // verificar que los datos no esten vacios
-                if (validator_1.default.isEmpty(email.trim()) ||
-                    validator_1.default.isEmpty(password.trim())) {
-                    return res
-                        .status(400)
-                        .json({ message: "Los campos son requeridos", code: 1 });
-                }
-                return res.json({ message: "Autenticación correcta", code: 0 });
-            }
-            catch (error) {
-                return res.status(500).json({ message: `${error.message}` });
-            }
+            const salt = yield bcryptjs_1.default.genSaltSync(10);
+            return yield bcryptjs_1.default.hashSync(password, salt);
+        });
+    }
+    checkPassword(password, encryptedPassword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield bcryptjs_1.default.compareSync(password, encryptedPassword);
         });
     }
 }
-exports.authController = new AuthController();
-//# sourceMappingURL=authControllers.js.map
+exports.utils = new Utils();
+//# sourceMappingURL=utils.js.map

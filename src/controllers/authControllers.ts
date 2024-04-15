@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import validator from "validator";
+import model from "../models/authModels";
 
+class AuthController {
 
-class authController {
-    
     public async iniciarSesion(req: Request, res: Response) {
        
         try {
@@ -22,11 +22,6 @@ class authController {
         } catch (error: any) {
             return res.status(500).json({ message : `${error.message}` });
         }
-
-        
     }
-
 }
-
-
-export const AuthController = new authController()
+export const authController = new AuthController();
