@@ -12,20 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.utils = void 0;
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-class Utils {
-    hashPassword(password) {
+const connections_1 = __importDefault(require("../config/connections"));
+class AuthModelo {
+    /*
+    *Método para buscar un usuario por username
+    */
+    getuserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            const salt = yield bcryptjs_1.default.genSalt(10);
-            return yield bcryptjs_1.default.hash(password, salt);
-        });
-    }
-    checkPassword(password, encryptedPassword) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield bcryptjs_1.default.compare(password, encryptedPassword);
+            let query = "SELECT * FROM tbl_usuario WHERE email='" + email + "'";
+            const result = yield connections_1.default.then((connection) => __awaiter(this, void 0, void 0, function* () {
+                return yield connection.query(query);
+            }));
+            return result;
         });
     }
 }
-exports.utils = new Utils();
-//# sourceMappingURL=utils.js.map
+const model = new AuthModelo();
+exports.default = model;
+//# sourceMappingURL=authModelo.js.map

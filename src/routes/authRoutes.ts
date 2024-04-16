@@ -1,17 +1,16 @@
-import { Router, Request, Response } from 'express';
-import { authController } from '../controllers/authControllers';
+import {Router, RouterOptions} from "express";
+import { authController } from "../controllers/authController";
 
 class AuthRoutes {
     public router: Router;
 
-    constructor() {
+    constructor(){
         this.router = Router();
         this.config();
     }
 
     config() {
-        this.router.post('/', authController.iniciarSesion)
-        console.log("el fackin problema esta en las rutas, entiente >:v");        
+        this.router.post('/', authController.iniciarSesion);        
     }
 }
 

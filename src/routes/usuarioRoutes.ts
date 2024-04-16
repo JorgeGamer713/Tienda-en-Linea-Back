@@ -13,6 +13,7 @@ class UsuarioRoutes {
         this.config();
     }
 
+
     private config() {
         this.router.get('/', usuarioController.list);        
         this.router.post('/', usuarioController.add)
