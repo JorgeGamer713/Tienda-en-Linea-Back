@@ -1,10 +1,12 @@
-import pool from "../config/connections";
+import pool from "../utils/connections";
+
 
 class UsuarioModelo {
   public async list() {
     const result = await pool.then(async (connection) => {
       return await connection.query(
-        " SELECT u.email, u.password, u.role " + " FROM tbl_usuario u "
+       // " SELECT u.email, u.password, u.role " + " FROM tbl_usuario u "
+       "SELECT * FROM tbl_usuario"
       );
     });
     return result;
@@ -28,12 +30,13 @@ class UsuarioModelo {
   }
 
   public async update(usuario: any) {
-    const updateQuery = "UPDATE tbl_usuario SET password = ? WHERE email = ?";
+    const updateQuery = "UPDATE tbl_usuario SET password = ?, role = ? WHERE email = ?";
     const result = await pool.then(async (connection) => {
-      return await connection.query(updateQuery, [usuario.password, usuario.email]);
+        return await connection.query(updateQuery, [usuario.password, usuario.role, usuario.email]);
     });
     return result;
-  }
+}
+
 
   public async delete(email: string) {
     const result = await pool.then(async (connection) => {
